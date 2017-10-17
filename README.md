@@ -7,6 +7,7 @@ APP can run in any Android device,include mobile phone or all-in-one device.
 
 For example:
 - [Gear VR](https://github.com/NOLOVR/NOLO-Unity-SDK/blob/master/Docs/en_us/GetStarted.md#build-gear-vr-example)
+- [Cardboard](https://github.com/NOLOVR/NOLO-Unity-SDK/blob/master/Docs/en_us/GetStarted.md#build-daydream-example)
 - [Cardboard](https://github.com/NOLOVR/NOLO-Unity-SDK/blob/master/Docs/en_us/GetStarted.md#build-cardboard-example)
 - [Other](https://github.com/NOLOVR/NOLO-Unity-SDK/blob/master/Docs/en_us/GetStarted.md#other-vr-sdk)
 
