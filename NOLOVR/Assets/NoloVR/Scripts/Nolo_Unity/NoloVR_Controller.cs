@@ -113,11 +113,11 @@ public class NoloVR_Controller {
         public NoloTrackingStatus GetTrackingStaus()
         {
             Update();
-            if (trackingStatus == 0)
+            if ((trackingStatus << 0 & 1) == 0)
             {
                 return NoloTrackingStatus.OutofRange;
             }
-            if (trackingStatus == 1)
+            if ((trackingStatus << 0 & 1) == 1)
             {
                 return NoloTrackingStatus.Normal;
             }
@@ -145,13 +145,13 @@ public class NoloVR_Controller {
                             NoloVR_Controller.recPosition = NoloVR_Plugins.GetPose(0).pos;
                         }
                         pose = NoloVR_Plugins.GetPose(index);
-                        //pose.rot *= new Quaternion(0, 1, 0, 0);
-                        Vector3 rot = pose.rot.eulerAngles;
+                        var rot = pose.rot.eulerAngles;
                         rot += new Vector3(0, 180, 0);
                         pose.rot = Quaternion.Euler(rot);
                         pose.pos.x = NoloVR_Controller.recPosition.x * 2 - pose.pos.x;
                         pose.pos.z = NoloVR_Controller.recPosition.z * 2 - pose.pos.z;
-
+                        pose.vecVelocity.x = -pose.vecVelocity.x;
+                        pose.vecVelocity.z = -pose.vecVelocity.z;
                         return;
                     }
                     NoloVR_Controller.recPosition = Vector3.zero;
@@ -195,7 +195,6 @@ public class NoloVR_Controller {
     static void TurnAroundEvents(params object[] args)
     {
         isTurnAround = !isTurnAround;
-        Debug.Log("turnaround");
     }
     public static void Listen()
     {

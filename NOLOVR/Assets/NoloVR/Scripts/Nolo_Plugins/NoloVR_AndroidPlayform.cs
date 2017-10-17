@@ -14,11 +14,11 @@ public class NoloVR_AndroidPlayform : NoloVR_Playform
     AndroidJavaObject currentActivity;
     AndroidJavaObject context;
     AndroidJavaObject jc, jo;
-
     public override bool InitDevice()
     {
         try
         {
+            playformError = NoloError.NoConnect;
             //init serves
             unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
@@ -26,7 +26,6 @@ public class NoloVR_AndroidPlayform : NoloVR_Playform
             jc = new AndroidJavaClass("com.watchdata.usbhostconn.UsbCustomTransfer");
             jo = jc.CallStatic<AndroidJavaObject>("getInstance", context);
             jo.Call("usb_init");
-            playformError = NoloError.NoConnect;
         }
         catch (Exception e)
         {
@@ -36,13 +35,13 @@ public class NoloVR_AndroidPlayform : NoloVR_Playform
         }
         return true;
     }
-
     //Connect Device Method
     public override bool ConnectDevice()
     {
         try
         {
             int result = jo.Call<int>("usb_conn");
+            Debug.Log("NoloVR_AndroidPlayform ConnectDevice:"+result);
             if (result == 1)
             {
                 playformError = NoloError.None;
@@ -73,12 +72,15 @@ public class NoloVR_AndroidPlayform : NoloVR_Playform
     public override void ReconnectDeviceCallBack()
     {
         //do nothing
+        Debug.Log("nolo_android_ReconnectDeviceCallBack");
+        playformError = NoloError.None;
     }
 
     //Disconnect callback
     public override void DisConnectedCallBack()
     {
         playformError = NoloError.DisConnect;
+        Debug.Log("nolo_android_DisConnectedCallBack");
     }
 
     // Pre HapticPulse message
@@ -89,42 +91,9 @@ public class NoloVR_AndroidPlayform : NoloVR_Playform
     // Intensity: range 0~100 
     public override void TriggerHapticPulse(int deviceIndex, int intensity)
     {
-        byte[] coder = new byte[4];
-        coder[0] = 0xAA;
-        coder[1] = 0x66;
-        if (intensity < 0) intensity = 0;
-        if (intensity > 100) intensity = 100;
-        switch (deviceIndex)
-        {
-            case (int)NoloDeviceType.LeftController:
-                if (preDeviceIndex != deviceIndex)
-                {
-                    coder[3] = preDeviceIndexIntensity;
-                }
-                coder[2] = (byte)intensity;
-                break;
-            case (int)NoloDeviceType.RightController:
-                if (preDeviceIndex != deviceIndex)
-                {
-                    coder[2] = preDeviceIndexIntensity;
-                }
-                coder[3] = (byte)intensity;
-                break;
-            default:
-                break;
-        }
-        preDeviceIndex = deviceIndex;
-        preDeviceIndexIntensity = (byte)intensity;
-        ConnectToSendData(coder);
-
-    } 
-    //Connect To SendData
-    //Msg：you send message to device
-    private void ConnectToSendData(byte[] msg)
-    {
         try
         {
-            jo.Call("usb_sendData", msg);
+            jo.Call("triggerHapticPulse", deviceIndex, intensity);
         }
         catch (System.Exception e)
         {

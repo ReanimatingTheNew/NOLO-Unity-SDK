@@ -48,8 +48,6 @@ public delegate void ConnectedCallBack();
 
 public class NoloVR_Plugins
 {
-    //sdk version
-    private const int nolo_SDK_Version = 2;
     //hmd version dk2 or cv1
     private static int hmdVersion = 0;
     //total number
@@ -58,11 +56,7 @@ public class NoloVR_Plugins
     #region method
     public static Nolo_Transform GetPose(int deviceIndex)
     {
-        if (hmdVersion <= 0)
-        {
-            hmdVersion = API_1_0_0.GetVersionByDeviceType(0);
-        }
-        if (hmdVersion >= API_1_0_0.apiVersion)
+        if (GetHmdVersion() >= API_1_0_0.apiVersion)
         {
             return new Nolo_Transform(API_1_0_0.GetPoseByDeviceType(deviceIndex));
         }
@@ -73,11 +67,7 @@ public class NoloVR_Plugins
     }
     public static Nolo_ControllerStates GetControllerStates(int deviceIndex)
     {
-        if (hmdVersion <= 0)
-        {
-            hmdVersion = API_1_0_0.GetVersionByDeviceType(0);
-        }
-        if (hmdVersion >= API_1_0_0.apiVersion)
+        if (GetHmdVersion() >= API_1_0_0.apiVersion)
         {
             return API_1_0_0.GetControllerStatesByDeviceTyp(deviceIndex);
         }
@@ -88,11 +78,7 @@ public class NoloVR_Plugins
     }
     public static int GetElectricity(int deviceIndex)
     {
-        if (hmdVersion <= 0)
-        {
-            hmdVersion = API_1_0_0.GetVersionByDeviceType(0);
-        }
-        if (hmdVersion >= API_1_0_0.apiVersion)
+        if (GetHmdVersion() >= API_1_0_0.apiVersion)
         {
             return API_1_0_0.GetElectricityByDeviceType(deviceIndex);
         }
@@ -111,11 +97,7 @@ public class NoloVR_Plugins
     }
     public static int GetTrackingStatus(int type)
     {
-        if (hmdVersion <= 0)
-        {
-            hmdVersion = API_1_0_0.GetVersionByDeviceType(0);
-        }
-        if (hmdVersion >=API_2_0_0.apiVersion)
+        if (GetHmdVersion() >= API_2_0_0.apiVersion)
         {
             return API_2_0_0.GetDeviceTrackingStatus(type);
         }
@@ -123,11 +105,7 @@ public class NoloVR_Plugins
     }
     public static Nolo_Vector3 GetHmdInitPosition()
     {
-        if (hmdVersion <= 0)
-        {
-            hmdVersion = API_1_0_0.GetVersionByDeviceType(0);
-        }
-        if (hmdVersion >= API_2_0_0.apiVersion)
+        if (GetHmdVersion() >= API_2_0_0.apiVersion)
         {
             return API_2_0_0.GetHmdInitPosition();
         }
@@ -162,6 +140,8 @@ public class NoloVR_Plugins
     {
         public Nolo_Vector3 pos;
         public Nolo_Quaternion rot;
+        public Nolo_Vector3 vecVelocity; 
+        public Nolo_Vector3 vecAngularVelocity;
     }
     [StructLayout(LayoutKind.Sequential)]
     public struct Nolo_ControllerStates
@@ -178,7 +158,7 @@ public class NoloVR_Plugins
 #if (UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN)
         public const string dllName = "noloRuntime";
 #elif UNITY_ANDROID
-        public const string dllName = "libNoloVrUnity";
+        public const string dllName = "libNoloVR";
 #endif
     }
     public class API_1_0_0 : API

@@ -32,12 +32,10 @@
 * Click build,then install to mobile phone.
 <div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/build.png"></div> 
 
-## Build CardBoard Example
-* Import [CardBoard SDK For Unity](https://developers.google.com/cardboard/unity/download)to the same way.
+## Build Daydream Example
+* Import [NOLO SDK For Unity](https://github.com/NOLOVR/NOLO-Unity-SDK/blob/master/NoloVR_SDK_1.1.2_20170524.unitypackage)to the same way.
 
 * Open NoloVR\Example\General\Test.  
-
-* Put CardBoard GvrViewerMain in this Scene. 
 
 <div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/vrcamera.png"></div>  
 
@@ -45,7 +43,27 @@
 
 <div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/switch%20playform.png"></div>  
 
-* Click Player Settings,Modify Bundle Identifier.  
+* Click Player Settings,Modify Bundle Identifier,Check Virtual Reality Supported and Add Daydream.  
+
+<div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/playersetting.png"></div>  
+<div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/daydreamsetting.png"></div>  
+
+* Click build,then install to mobile phone.   
+
+<div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/build.png"></div> 
+
+## Build CardBoard Example
+* Import [NOLO SDK For Unity](https://github.com/NOLOVR/NOLO-Unity-SDK/blob/master/NoloVR_SDK_1.1.2_20170524.unitypackage)to the same way.
+
+* Open NoloVR\Example\General\Test.  
+
+<div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/vrcamera.png"></div>  
+
+* Click File->Build Setting,Click Add Open Scenes,Choose Android,Click Switch Playform.  
+
+<div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/switch%20playform.png"></div>  
+
+* Click Player Settings,Modify Bundle Identifier,Check Virtual Reality Supported and Add Cardboard.  
 
 <div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/playersetting.png"></div>  
 <div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/cardboardsetting.png"></div>  

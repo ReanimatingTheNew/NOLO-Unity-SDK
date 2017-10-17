@@ -64,6 +64,7 @@ public class NoloVR_WinPlayform : NoloVR_Playform
             playformError = NoloError.NoConnect;
         }
         catch (Exception e)
+
         {
             Debug.Log("DisConnectedCallBack:"+e.Message);
             throw;

@@ -15,10 +15,10 @@ public class NoloVR_AndroidCallBack : MonoBehaviour {
     public void usbDeviceState(string msg) {
         switch (msg)
         {
-            case "usb 设备断开":
+            case "NOLO Devices Disconnected":
                 NoloVR_Playform.InitPlayform().DisConnectedCallBack();
                 break;
-            case "usb 设备接入":
+            case "NOLO Devices Reconnected":
                 NoloVR_Playform.InitPlayform().ReconnectDeviceCallBack();
                 break;
             default:

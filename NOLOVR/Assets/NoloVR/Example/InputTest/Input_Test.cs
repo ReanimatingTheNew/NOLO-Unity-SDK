@@ -26,7 +26,7 @@ public class Input_Test : MonoBehaviour {
         if (NoloVR_Controller.GetDevice(NoloDeviceType.RightController).GetNoloButtonPressed(NoloButtonID.Trigger))
         {
             Debug.Log("RightController Trigger Pressed");
-            NoloVR_Controller.GetDevice(NoloDeviceType.RightController).TriggerHapticPulse(80);
+            NoloVR_Controller.GetDevice(NoloDeviceType.RightController).TriggerHapticPulse(100);
         }
         if (NoloVR_Controller.GetDevice(NoloDeviceType.RightController).GetNoloButtonUp(NoloButtonID.Trigger))
         {

@@ -13,9 +13,14 @@ public class NoloVR_TrackedDevice : MonoBehaviour {
     private GameObject vrCamera;
     void Start()
     {
+        //get vrcamera
         vrCamera = NoloVR_Manager.GetInstance().VRCamera;
     }
 	void Update () {
+        if (NoloVR_Playform.InitPlayform().GetPlayformError() != NoloError.None)
+        {
+            return;
+        }
         //更新位置
         UpdatePose();
     }
@@ -30,6 +35,7 @@ public class NoloVR_TrackedDevice : MonoBehaviour {
 
     void UpdatePose()
     {
+       
         var pose = NoloVR_Controller.GetDevice(deviceType).GetPose();
         if (deviceType == NoloDeviceType.Hmd)
         {
@@ -65,9 +71,6 @@ public class NoloVR_TrackedDevice : MonoBehaviour {
             var cameraLoaclPosition = transform.localRotation * vrCamera.transform.localPosition;
             var noloCentralPointVector = transform.localRotation * centralPointVector;
             transform.localPosition = pose.pos - cameraLoaclPosition - noloCentralPointVector;
-
-           
-
         }
         else
         {

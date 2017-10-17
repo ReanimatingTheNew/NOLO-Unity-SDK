@@ -20,13 +20,10 @@ Cardboard:GvrViewer.Instance.Recenter();
 We would like to be able to add an icon on the app icon,Indicates support for nolo devices,Material has been in unitypackage.
 
 
-## NOLOVR SDK Version 1.1.6
+## NOLOVR SDK Version 1.1.7
 
-* 1.Both automatic and manual to Connect to nolo devices:     
-    automatic:NoloVR_Manager->automaticConnection = true;
-    manual:NOLO_Events.Send(NOLO_Events.EventsType.ConnectNoloDevice);      
-* 2.Customize the hot-key for 180 degree turn around function. You can choose different hotkeys for the function or disable it.       
-* 3.Remove the boxcollider on the prefabs.
+* 1.Remove NoloVR_Manager->automaticConnection option, use automatic connection for NOLO devices.      
+* 2.Add velocity and angularvelocity which can be used via GetPose().vecVelocity and GetPose().vecAngularVelocity.
  
 Documentation for the API is available on the [Wiki](https://github.com/NOLOVR/NOLO-Unity-SDK/wiki).
 

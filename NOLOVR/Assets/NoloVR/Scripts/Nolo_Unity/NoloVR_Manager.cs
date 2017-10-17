@@ -19,8 +19,6 @@ public class NoloVR_Manager : MonoBehaviour
     }
     [Tooltip("Camera's rotation should be changed when the app running")]
     public GameObject VRCamera;
-    [Tooltip("App will automatic connected NOLO devices")]
-    public bool automaticConnection = true;
     [Tooltip("Double click turnaround button")]
     public TurnAroundButtonType turnAroundButtonType;
     private NoloButtonID buttontype;
@@ -68,33 +66,8 @@ public class NoloVR_Manager : MonoBehaviour
         NoloVR_Controller.Listen();
         
     }
-    void OnEnable()
-    {
-        NOLO_Events.Listen(NOLO_Events.EventsType.ConnectNoloDevice, ConnectionNOLO);
-    }
-    void OnDisable()
-    {
-        NOLO_Events.Remove(NOLO_Events.EventsType.ConnectNoloDevice, ConnectionNOLO);
-    }
     void Update ()
     {
-        //automatic connect the usb device
-        if (automaticConnection)
-        {
-            if (NoloVR_Playform.InitPlayform().GetPlayformError() != NoloError.None)
-            {
-                if (spacingFrame < 200)
-                {
-                    spacingFrame++;
-                }
-                else
-                {
-                    ConnectionNOLO();
-                    spacingFrame = 0;
-                }
-            }
-         
-        }
         if (turnAroundButtonType!= TurnAroundButtonType.Null)
         {
             TurnAroundEventsMonitor();
@@ -168,11 +141,6 @@ public class NoloVR_Manager : MonoBehaviour
                 rightcontrollerRecenter_PreFrame = Time.frameCount;
             }
         }
-    }
-
-    void ConnectionNOLO(params object[] args)
-    {
-        NoloVR_Playform.InitPlayform().ConnectDevice();
     }
 
     void OnApplicationQuit()

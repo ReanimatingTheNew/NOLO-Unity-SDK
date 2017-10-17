@@ -11,7 +11,7 @@ public class NoloVR_BaseStation : MonoBehaviour {
         }
 
         transform.localPosition = new Vector3(0, -NoloVR_Plugins.GetHmdInitPosition().y, 0);
-
+        //y - play ground height
         for (int i = 0; i < NoloVR_Manager.GetInstance().objects.Length; i++)
         {
             if (Mathf.Abs (NoloVR_Manager.GetInstance().objects[i].transform.localPosition.x) > Mathf.Abs(NoloVR_Manager.GetInstance().objects[i].transform.localPosition.z)||
