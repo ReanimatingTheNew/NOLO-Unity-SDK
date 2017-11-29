@@ -21,10 +21,13 @@ Cardboard:GvrViewer.Instance.Recenter();
 We would like to be able to add an icon on the app icon,Indicates support for nolo devices,Material has been in unitypackage.
 
 
-## NOLOVR SDK Version 1.1.7
+## NOLOVR SDK Version 0.1 beta
+### The version number of Unity SDK is now changed from 1.1.7 to 0.1 beta. 
 
-* 1.Remove NoloVR_Manager->automaticConnection option, use automatic connection for NOLO devices.      
-* 2.Add velocity and angularvelocity which can be used via GetPose().vecVelocity and GetPose().vecAngularVelocity.
+* 1.Fixed the abnormal issue of yaw correction.      
+* 2.Fixed the software crash issue when completed editing in Unity.
+* 3.Added choices of platforms (Cardboard, Daydream, GearVR); before Build, please make sure the selected platform and Unity VR Support platform are matched respectively.
+* 4.Added directional buttons on the touchpad (i.e. up, down, left, right).
  
 Documentation for the API is available on the [Wiki](https://github.com/NOLOVR/NOLO-Unity-SDK/wiki).
 
