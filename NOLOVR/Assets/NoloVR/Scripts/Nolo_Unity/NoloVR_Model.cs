@@ -24,6 +24,7 @@ public class NoloVR_Model : MonoBehaviour
     }
     void Update()
     {
+        
         if (NoloVR_Controller.GetDevice(trackedDevice).GetNoloButtonPressed(NoloButtonID.TouchPad))
         {
             TouchPad_Down();
@@ -78,7 +79,6 @@ public class NoloVR_Model : MonoBehaviour
     {
         touchpad.transform.localPosition = Vector3.zero;
     }
-
     //menu
     void Menu_Down()
     {
@@ -122,4 +122,5 @@ public class NoloVR_Model : MonoBehaviour
         grip_left.transform.localPosition = Vector3.zero;
         grip_right.transform.localPosition = Vector3.zero;
     }
+
 }

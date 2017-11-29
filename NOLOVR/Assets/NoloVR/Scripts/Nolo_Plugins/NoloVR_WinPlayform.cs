@@ -23,9 +23,9 @@ public class NoloVR_WinPlayform : NoloVR_Playform
             NoloVR_Plugins.API_1_0_0.connectSuccess_FunCallBack(conn);
             playformError = NoloError.NoConnect;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            Debug.Log("NoloVR_WinPlayform InitDevice:error");
+            Debug.Log("NoloVR_WinPlayform InitDevice:"+ex.Message);
             return false;
         }
         ConnectDevice();
@@ -60,7 +60,6 @@ public class NoloVR_WinPlayform : NoloVR_Playform
         Debug.Log("disconnect nolo device");
         try
         {
-            NoloVR_Plugins.API_1_0_0.close_Nolo_ZeroMQ();
             playformError = NoloError.NoConnect;
         }
         catch (Exception e)
@@ -77,7 +76,6 @@ public class NoloVR_WinPlayform : NoloVR_Playform
         try
         {
             playformError = NoloError.None;
-
         }
         catch (Exception e)
         {
@@ -94,6 +92,11 @@ public class NoloVR_WinPlayform : NoloVR_Playform
     public override void TriggerHapticPulse(int deviceIndex, int intensity)
     {
         NoloVR_Plugins.API_1_0_0.Nolovr_TriggerHapticPulse(deviceIndex, intensity);
+    }
+
+    public override void SetHmdTrackingCenter(NoloVR_Plugins.Nolo_Vector3 vec)
+    {
+        //null
     }
 }
 #endif

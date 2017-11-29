@@ -16,11 +16,15 @@ public enum NoloDeviceType
 }
 public enum NoloButtonID
 {
-    TouchPad,
+    TouchPad = 0,
     Trigger,
     Menu,
     System,
-    Grip
+    Grip,
+    TouchPadUp = 7,
+    TouchPadDown,
+    TouchPadLeft,
+    TouchPadRight,
 }
 public enum NoloTouchID
 {
@@ -186,10 +190,10 @@ public class NoloVR_Plugins
         [DllImport(dllName, EntryPoint = "set_Nolo_TriggerHapticPulse")]
         public static extern bool Nolovr_TriggerHapticPulse(int type,int intensity);
 
-        [DllImport(dllName, EntryPoint = "disConnect_FunCallBack")]
+        [DllImport(dllName, EntryPoint = "registerDisConnectCallBack")]
         public static extern bool disConnenct_FunCallBack(DisConnectedCallBack callback);
 
-        [DllImport(dllName, EntryPoint = "connectSuccess_FunCallBack")]
+        [DllImport(dllName, EntryPoint = "registerConnectSuccessCallBack")]
         public static extern bool connectSuccess_FunCallBack(ConnectedCallBack callback);
 #elif UNITY_ANDROID
         [DllImport(dllName)]
@@ -210,15 +214,23 @@ public class NoloVR_Plugins
     {
         public static int apiVersion = 2;
 #if (UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN)
+
         [DllImport(dllName, EntryPoint = "get_Nolo_StateByDeviceType")]
         public static extern int GetDeviceTrackingStatus(int type);
         [DllImport(dllName, EntryPoint = "get_Nolo_HMDInitPosition")]
         public static extern Nolo_Vector3 GetHmdInitPosition();
+        [DllImport(dllName)]
+        public static extern void SetHmdTrackingCenter(Nolo_Vector3 centralPointVector);
+
 #elif UNITY_ANDROID
+
         [DllImport(dllName)]
         public static extern int GetDeviceTrackingStatus(int type);
         [DllImport(dllName)]
         public static extern Nolo_Vector3 GetHmdInitPosition();
+        [DllImport(dllName)]
+        public static extern void SetHmdTrackingCenter(Nolo_Vector3 centralPointVector);
+
 #endif
     }
     #endregion

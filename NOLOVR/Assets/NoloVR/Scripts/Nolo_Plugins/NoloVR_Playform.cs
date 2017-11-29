@@ -8,18 +8,20 @@
 public abstract class NoloVR_Playform
 {
 
-    //init method to prepare connect device
+
     public abstract bool InitDevice();
-    //connect device to get data
+   
     public abstract bool ConnectDevice(); 
-    //disconnect device
+   
     public abstract void DisconnectDevice();
-    //reconnect device callback
+   
     public abstract void ReconnectDeviceCallBack(); 
-    //disconnect device callback
+    
     public abstract void DisConnectedCallBack();
-    //HapticPulse
+  
     public abstract void TriggerHapticPulse(int deviceIndex,int intensity);
+
+    public abstract void SetHmdTrackingCenter(NoloVR_Plugins.Nolo_Vector3 vec);
 
     protected static NoloError playformError = NoloError.UnKnow;
 

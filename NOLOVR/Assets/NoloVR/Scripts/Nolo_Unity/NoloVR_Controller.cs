@@ -22,6 +22,11 @@ public class NoloVR_Controller {
         public const uint Menu = 1 << (int)NoloButtonID.Menu;
         public const uint System = 1 << (int)NoloButtonID.System;
         public const uint Grip = 1 << (int)NoloButtonID.Grip;
+
+        public const uint TouchPadUp = 1 << (int)NoloButtonID.TouchPadUp;
+        public const uint TouchPadDown = 1 << (int)NoloButtonID.TouchPadDown;
+        public const uint TouchPadLeft = 1 << (int)NoloButtonID.TouchPadLeft;
+        public const uint TouchPadRight = 1 << (int)NoloButtonID.TouchPadRight;
     }
     //touch mask
     public class TouchMask

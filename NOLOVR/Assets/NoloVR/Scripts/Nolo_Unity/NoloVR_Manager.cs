@@ -12,16 +12,25 @@ public class NoloVR_Manager : MonoBehaviour
 {
     public enum TurnAroundButtonType
     {
-        Menu,
-        Touchpad,
-        Grip,
-        Null
+        Null = -1,
+        Touchpad = 0,
+        Menu = 2,
+        Grip = 4
+    }
+    public enum NoloAndroidVRPlayform
+    {
+        GearVR,
+        DayDream,
+        CardBoard,
+        Other
     }
     [Tooltip("Camera's rotation should be changed when the app running")]
     public GameObject VRCamera;
     [Tooltip("Double click turnaround button")]
     public TurnAroundButtonType turnAroundButtonType;
-    private NoloButtonID buttontype;
+
+    [Tooltip("Choose the vr platform you want to develop")]
+    public NoloAndroidVRPlayform vrPlayform;
 
     [HideInInspector]
     public NoloVR_TrackedDevice[] objects;
@@ -47,22 +56,7 @@ public class NoloVR_Manager : MonoBehaviour
         objects = GameObject.FindObjectsOfType<NoloVR_TrackedDevice>();
         GameObject androidCallBack = new GameObject("USB Host Peripherals");
         androidCallBack.AddComponent<NoloVR_AndroidCallBack>();
-        switch (turnAroundButtonType)
-        {
-            case TurnAroundButtonType.Menu:
-                buttontype = NoloButtonID.Menu;
-                break;
-            case TurnAroundButtonType.Touchpad:
-                buttontype = NoloButtonID.TouchPad;
-                break;
-            case TurnAroundButtonType.Grip:
-                buttontype = NoloButtonID.Grip;
-                break;
-            case TurnAroundButtonType.Null:
-                break;
-            default:
-                break;
-        }
+        NoloVR_Playform.InitPlayform().SetHmdTrackingCenter(NoloVR_Utils.GetHmdTrackingCenter(vrPlayform));
         NoloVR_Controller.Listen();
         
     }
@@ -73,7 +67,6 @@ public class NoloVR_Manager : MonoBehaviour
             TurnAroundEventsMonitor();
         }
         Recenter();
-        
     }
 
     //turn around about
@@ -83,7 +76,7 @@ public class NoloVR_Manager : MonoBehaviour
     void TurnAroundEventsMonitor()
     {
         //leftcontroller double click system button
-        if (NoloVR_Controller.GetDevice(NoloDeviceType.LeftController).GetNoloButtonUp(buttontype))
+        if (NoloVR_Controller.GetDevice(NoloDeviceType.LeftController).GetNoloButtonUp((uint)1 << (int)turnAroundButtonType))
         {
             if (Time.frameCount - leftcontrollerTurn_PreFrame <= turnAroundSpacingFrame)
             {
@@ -96,7 +89,7 @@ public class NoloVR_Manager : MonoBehaviour
             }
         }
         //rightcontroller double click system button
-        if (NoloVR_Controller.GetDevice(NoloDeviceType.RightController).GetNoloButtonUp(buttontype))
+        if (NoloVR_Controller.GetDevice(NoloDeviceType.RightController).GetNoloButtonUp((uint)1 << (int)turnAroundButtonType))
         {
             if (Time.frameCount - rightcontrollerTurn_PreFrame <= turnAroundSpacingFrame)
             {
@@ -113,6 +106,7 @@ public class NoloVR_Manager : MonoBehaviour
     private int leftcontrollerRecenter_PreFrame = -1;
     private int rightcontrollerRecenter_PreFrame = -1;
     private int recenterSpacingFrame = 20;
+
     void Recenter()
     {
         //leftcontroller double click system button

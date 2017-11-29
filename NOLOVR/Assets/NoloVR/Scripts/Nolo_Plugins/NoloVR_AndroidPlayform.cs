@@ -4,6 +4,8 @@
  *  NoloVR_AndroidPlayform.cs
  *   
 *************************************************************/
+#if UNITY_ANDROID && !UNITY_EDITOR
+#endif
 
 using UnityEngine;
 using System;
@@ -18,6 +20,7 @@ public class NoloVR_AndroidPlayform : NoloVR_Playform
     {
         try
         {
+            
             playformError = NoloError.NoConnect;
             //init serves
             unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -26,6 +29,7 @@ public class NoloVR_AndroidPlayform : NoloVR_Playform
             jc = new AndroidJavaClass("com.watchdata.usbhostconn.UsbCustomTransfer");
             jo = jc.CallStatic<AndroidJavaObject>("getInstance", context);
             jo.Call("usb_init");
+          
         }
         catch (Exception e)
         {
@@ -38,21 +42,21 @@ public class NoloVR_AndroidPlayform : NoloVR_Playform
     //Connect Device Method
     public override bool ConnectDevice()
     {
-        try
-        {
-            int result = jo.Call<int>("usb_conn");
-            Debug.Log("NoloVR_AndroidPlayform ConnectDevice:"+result);
-            if (result == 1)
-            {
-                playformError = NoloError.None;
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.Log("NoloVR_AndroidPlayform ConnectDevice:error"+e.Message);
-            playformError = NoloError.ConnectFail;
-            return false;
-        }
+        //try
+        //{
+        //    int result = jo.Call<int>("usb_conn");
+        //    Debug.Log("NoloVR_AndroidPlayform ConnectDevice:"+result);
+        //    if (result == 1)
+        //    {
+        //        playformError = NoloError.None;
+        //    }
+        //}
+        //catch (Exception e)
+        //{
+        //    Debug.Log("NoloVR_AndroidPlayform ConnectDevice:error"+e.Message);
+        //    playformError = NoloError.ConnectFail;
+        //    return false;
+        //}
         return true;
     }
 
@@ -100,5 +104,9 @@ public class NoloVR_AndroidPlayform : NoloVR_Playform
             Debug.LogError("Android playform sendData_usb error:" + e);
         }
     }
-   
+
+    public override void SetHmdTrackingCenter(NoloVR_Plugins.Nolo_Vector3 vec)
+    {
+        NoloVR_Plugins.API_2_0_0.SetHmdTrackingCenter(vec);
+    }
 }

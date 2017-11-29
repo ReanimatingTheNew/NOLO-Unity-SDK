@@ -93,3 +93,67 @@ public class NOLO_Events
 }
 
 
+public class NoloVR_Utils
+{
+    //Correction of yaw speed unit: degree / sec
+    static float angleAdjustmentRate = 0.008f;
+
+    public static NoloVR_Plugins.Nolo_Vector3 GetHmdTrackingCenter(NoloVR_Manager.NoloAndroidVRPlayform vrPlayform)
+    {
+        NoloVR_Plugins.Nolo_Vector3 vec = new NoloVR_Plugins.Nolo_Vector3();
+        switch (vrPlayform)
+        {
+            case NoloVR_Manager.NoloAndroidVRPlayform.GearVR:
+                vec.x = 0f;
+                vec.y = 0.065f;
+                vec.z = 0.060f;
+                break;
+            case NoloVR_Manager.NoloAndroidVRPlayform.DayDream:
+                vec.x = 0f;
+                vec.y = 0.08f;
+                vec.z = 0.062f;
+                break;
+            case NoloVR_Manager.NoloAndroidVRPlayform.CardBoard:
+                vec.x = 0f;
+                vec.y = 0.094f;
+                vec.z = 0.048f;
+                break;
+            case NoloVR_Manager.NoloAndroidVRPlayform.Other:
+                vec.x = 0f;
+                vec.y = 0f;
+                vec.z = 0f;
+                break;
+            default:
+                break;
+        }
+        return vec;
+    }
+
+    public static Quaternion GetRecenterRot(Quaternion rot,float presetyaw,float setyaw)
+    {
+        if (rot.x > -0.4f && rot.x < 0.4f)
+        {
+            if (setyaw > -360 && setyaw < -340)
+            {
+                return Quaternion.Euler(0, presetyaw + angleAdjustmentRate, 0);
+            }
+            else if (setyaw > 0 && setyaw < 20)
+            {
+                return Quaternion.Euler(0, presetyaw + angleAdjustmentRate, 0);
+            }
+            else if (setyaw > -20 && setyaw < 0)
+            {
+                return Quaternion.Euler(0, presetyaw - angleAdjustmentRate, 0);
+            }
+            else
+            {
+                return Quaternion.Euler(0, presetyaw+ setyaw, 0);
+            }
+        }
+        return Quaternion.Euler(0, presetyaw, 0);
+    }
+
+}
+
+
+

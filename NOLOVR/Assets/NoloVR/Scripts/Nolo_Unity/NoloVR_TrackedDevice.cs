@@ -24,18 +24,15 @@ public class NoloVR_TrackedDevice : MonoBehaviour {
         //更新位置
         UpdatePose();
     }
-
     private float camerayaw;
     private float noloyaw;
     private float resetyaw;
-    private float prersetyaw;
+    private float presetyaw;
     private float resultyaw;
-    private float angleAdjustmentRate = 1f / 120f;
-    private Vector3 centralPointVector = new Vector3(0, 0.09f, 0.06f);
+
 
     void UpdatePose()
     {
-       
         var pose = NoloVR_Controller.GetDevice(deviceType).GetPose();
         if (deviceType == NoloDeviceType.Hmd)
         {
@@ -48,29 +45,14 @@ public class NoloVR_TrackedDevice : MonoBehaviour {
             //Correct the camera yaw
             noloyaw = pose.rot.eulerAngles.y;
             resetyaw = noloyaw - camerayaw > 0 ? noloyaw - camerayaw : noloyaw - camerayaw + 360;
-            prersetyaw = transform.localRotation.eulerAngles.y;
-            resultyaw = resetyaw - prersetyaw;
-            if (resultyaw > -360 && resultyaw < -340)
-            {
-                transform.localRotation = Quaternion.Euler(0, prersetyaw + angleAdjustmentRate, 0);
-            }
-            else if (resultyaw > 0 && resultyaw < 20)
-            {
-                transform.localRotation = Quaternion.Euler(0, prersetyaw + angleAdjustmentRate, 0);
-            }
-            else if (resultyaw > -20 && resultyaw < 0)
-            {
-                transform.localRotation = Quaternion.Euler(0, prersetyaw - angleAdjustmentRate, 0);
-            }
-            else
-            {
-                transform.localRotation = Quaternion.Euler(0, resetyaw, 0);
-            }
-            camerayaw = vrCamera.transform.localRotation.eulerAngles.y;
+            presetyaw = transform.localRotation.eulerAngles.y;
+            resultyaw = resetyaw - presetyaw;
+            transform.localRotation = NoloVR_Utils.GetRecenterRot(pose.rot, presetyaw, resultyaw);
+
             //Correct the camera position
+            camerayaw = vrCamera.transform.localRotation.eulerAngles.y;
             var cameraLoaclPosition = transform.localRotation * vrCamera.transform.localPosition;
-            var noloCentralPointVector = transform.localRotation * centralPointVector;
-            transform.localPosition = pose.pos - cameraLoaclPosition - noloCentralPointVector;
+            transform.localPosition = pose.pos - cameraLoaclPosition;
         }
         else
         {
