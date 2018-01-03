@@ -37,9 +37,7 @@
 ## Example: Build Daydream
 * Import [NOLO SDK For Unity](https://github.com/NOLOVR/NOLO-Unity-SDK/blob/master/NoloVR_SDK_1.1.2_20170524.unitypackage)to the same way.
 
-* Open NoloVR\Example\General\Test.  
-
-<div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/vrcamera.png"></div>  
+* Open NoloVR\Example\General\Test.   
 
 * Click File->Build Setting,Click Add Open Scenes,Choose Android,Click Switch Playform.  
 
@@ -58,8 +56,6 @@
 * Import [NOLO SDK For Unity](https://github.com/NOLOVR/NOLO-Unity-SDK/blob/master/NoloVR_SDK_1.1.2_20170524.unitypackage)to the same way.
 
 * Open NoloVR\Example\General\Test.  
-
-<div><img width = 400 heigh = 280 src="https://github.com/LyrobotixNolo/NOLO-Unity-SDK/blob/master/Docs/Image/vrcamera.png"></div>  
 
 * Click File->Build Setting,Click Add Open Scenes,Choose Android,Click Switch Playform.  
 
