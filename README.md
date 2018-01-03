@@ -1,7 +1,7 @@
-# NOLO VR SDK For Unity
-Develop moblie VR/AR with Unity.  
+# NOLOVR SDK For Unity
+Use this SDK to develop nolo compatible moblie VR/AR games with Unity.  
 
-For first time users, see the [Get Started](./Docs/en_us/GetStarted.md)([快速入门](./Docs/zh_cn/快速入门.md)).  
+For first time users, see the [Getting Started](./Docs/en_us/GetStarted.md) ([快速入门](./Docs/zh_cn/快速入门.md)).  
 
 APP can run in any Android device,include mobile phone or all-in-one device.  
 
